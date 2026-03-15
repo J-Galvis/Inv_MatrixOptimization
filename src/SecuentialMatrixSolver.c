@@ -107,7 +107,7 @@ int main(int argc, char* argv[]) { // So, the SO doesn`t pass arg directly, it p
   //RUSAGE_SELF is a flag to meassure current process itself
 
   int rows = atoi(argv[1]);  // converts "4" → 4
-  int cols = atoi(argv[2]);  // converts "4" → 4
+  int cols = rows;
 
   // Allocate memory for all three matrices
   int** A = create_matrix(rows, cols);

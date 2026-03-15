@@ -4,8 +4,6 @@
 #include <sys/time.h>
 #include <pthread.h>
 
-#define NUM_THREADS 4
-
 // --- Thread argument struct ---
 // Each thread needs to know which rows to compute, and where the matrices are
 typedef struct {
@@ -73,21 +71,21 @@ void print_matrix(int** matrix, int rows, int cols, char name) {
 }
 
 // --- Threaded matrix multiplication ---
-// Spawns NUM_THREADS threads, each handling a contiguous chunk of rows of C
+// Spawns num_threads threads, each handling a contiguous chunk of rows of C
 void multiply_matrices_threaded(int** A, int rows_A, int cols_A,
                                 int** B, int cols_B,
-                                int** C) {
-    pthread_t threads[NUM_THREADS];
-    ThreadArgs args[NUM_THREADS];
+                                int** C, int num_threads) {
+    pthread_t threads[num_threads];
+    ThreadArgs args[num_threads];
 
     // Calculate how many rows each thread gets
     // Using integer division; the last thread absorbs any remainder
-    int rows_per_thread = rows_A / NUM_THREADS;
+    int rows_per_thread = rows_A / num_threads;
 
-    for (int t = 0; t < NUM_THREADS; t++) {
+    for (int t = 0; t < num_threads; t++) {
         args[t].start_row = t * rows_per_thread;
-        // Last thread takes all remaining rows (handles rows_A % NUM_THREADS remainder)
-        args[t].end_row   = (t == NUM_THREADS - 1) ? rows_A : (t + 1) * rows_per_thread;
+        // Last thread takes all remaining rows (handles rows_A % num_threads remainder)
+        args[t].end_row   = (t == num_threads - 1) ? rows_A : (t + 1) * rows_per_thread;
         args[t].cols_A    = cols_A;
         args[t].cols_B    = cols_B;
         args[t].A         = A;
@@ -98,7 +96,7 @@ void multiply_matrices_threaded(int** A, int rows_A, int cols_A,
     }
 
     // Wait for all threads to finish before returning
-    for (int t = 0; t < NUM_THREADS; t++) {
+    for (int t = 0; t < num_threads; t++) {
         pthread_join(threads[t], NULL);
     }
 }
@@ -126,7 +124,7 @@ void test_3x3() { // This fuction allows me to test if the current implementatio
         }
     }
 
-multiply_matrices_threaded(A, 3, 3, B, 3,  C);
+    multiply_matrices_threaded(A, 3, 3, B, 3, C, 4);
 
     print_matrix(C, 3, 3, 'C');
 
@@ -142,8 +140,10 @@ int main(int argc, char* argv[]) {
     struct rusage start, end;
     getrusage(RUSAGE_SELF, &start);
 
-    int rows = atoi(argv[1]);
-    int cols = atoi(argv[2]);
+    int rows = atoi(argv[1]); 
+    int num_threads = atoi(argv[2]);
+    
+    int cols = rows;
 
     int** A = create_matrix(rows, cols);
     int** B = create_matrix(rows, cols);
@@ -153,7 +153,7 @@ int main(int argc, char* argv[]) {
     input_matrix(B, rows, cols, 'B');
 
     // Perform threaded multiplication
-    multiply_matrices_threaded(A, rows, cols, B, cols, C);
+    multiply_matrices_threaded(A, rows, cols, B, cols, C, num_threads);
 
     // print_matrix(C, rows, cols, 'C');
 
@@ -165,7 +165,7 @@ int main(int argc, char* argv[]) {
     double user_time = (end.ru_utime.tv_sec  - start.ru_utime.tv_sec) +
                        (end.ru_utime.tv_usec - start.ru_utime.tv_usec) / 1e6;
 
-    printf("%.6f\n", user_time);
+    printf("%.6f,", user_time);
 
     return 0;
 }

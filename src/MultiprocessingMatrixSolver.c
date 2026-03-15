@@ -6,8 +6,6 @@
 #include <sys/wait.h>    // wait()
 #include <sys/mman.h>    // mmap(), munmap()
 
-#define NUM_PROCESSES 4
-
 // Function to allocate memory for a matrix (2D array)
 int** create_matrix(int rows, int cols) {
     int** matrix = (int**)malloc(rows * sizeof(int*));
@@ -46,18 +44,18 @@ void print_matrix(int** matrix, int rows, int cols, char name) {
 }
 
 // --- Forked matrix multiplication ---
-// Spawns NUM_PROCESSES children, each handling a contiguous chunk of rows of C.
+// Spawns num_processes children, each handling a contiguous chunk of rows of C.
 // C must point into a shared memory region (mmap MAP_SHARED) so child writes
 // are visible to the parent after the children exit.
 void multiply_matrices_forked(int** A, int rows_A, int cols_A,
                                int** B, int cols_B,
-                               int** C) {
-    int rows_per_proc = rows_A / NUM_PROCESSES;
+                               int** C, int num_processes) {
+    int rows_per_proc = rows_A / num_processes;
 
-    for (int p = 0; p < NUM_PROCESSES; p++) {
+    for (int p = 0; p < num_processes; p++) {
         int start_row = p * rows_per_proc;
         // Last process absorbs any remainder rows (mirrors threaded version)
-        int end_row = (p == NUM_PROCESSES - 1) ? rows_A : (p + 1) * rows_per_proc;
+        int end_row = (p == num_processes - 1) ? rows_A : (p + 1) * rows_per_proc;
 
         pid_t pid = fork();
 
@@ -78,7 +76,7 @@ void multiply_matrices_forked(int** A, int rows_A, int cols_A,
     }
 
     // Parent waits for all children to finish before returning
-    for (int p = 0; p < NUM_PROCESSES; p++) {
+    for (int p = 0; p < num_processes; p++) {
         wait(NULL);
     }
 }
@@ -126,7 +124,7 @@ void test_3x3() { // This fuction allows me to test if the current implementatio
         }
     }
 
-    multiply_matrices_forked(A, 3, 3, B, 3, C);
+    multiply_matrices_forked(A, 3, 3, B, 3, C, 4);
 
     print_matrix(C, 3, 3, 'C');
 
@@ -145,7 +143,9 @@ int main(int argc, char* argv[]) {
     getrusage(RUSAGE_SELF, &start);
 
     int rows = atoi(argv[1]);
-    int cols = atoi(argv[2]);
+    int num_processes = atoi(argv[2]);
+
+    int cols = rows;
 
     int** A = create_matrix(rows, cols);
     int** B = create_matrix(rows, cols);
@@ -170,7 +170,7 @@ int main(int argc, char* argv[]) {
     input_matrix(A, rows, cols, 'A');
     input_matrix(B, rows, cols, 'B');
 
-    multiply_matrices_forked(A, rows, cols, B, cols, C);
+    multiply_matrices_forked(A, rows, cols, B, cols, C, num_processes);
 
     //print_matrix(C, rows, cols, 'C');
 
