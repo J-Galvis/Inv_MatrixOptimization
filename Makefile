@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -O2
+CFLAGS = -O2
 SRC = src
 OUT = output
 
@@ -9,16 +9,16 @@ $(OUT):
 	mkdir -p $(OUT)
 
 $(OUT)/secuential: $(SRC)/SecuentialMatrixSolver.c | $(OUT)
-	$(CC) $(CFLAGS) -o $@ $<
+	$(CC) -o $@ $<
 
 $(OUT)/memory: $(SRC)/MemoryMatrixSolver.c | $(OUT)
-	$(CC) $(CFLAGS) -pthread -o $@ $<
+	$(CC) $(CFLAGS) -o $@ $<
 
 $(OUT)/threads: $(SRC)/ThreadsMatrixSolver.c | $(OUT)
-	$(CC) $(CFLAGS) -pthread -o $@ $<
+	$(CC)  -pthread -o $@ $<
 
 $(OUT)/multiprocessing: $(SRC)/MultiprocessingMatrixSolver.c | $(OUT)
-	$(CC) $(CFLAGS) -o $@ $<
+	$(CC)  -o $@ $<
 
 clean:
 	rm -rf $(OUT)
