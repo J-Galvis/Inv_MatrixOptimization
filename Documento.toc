@@ -1,0 +1,25 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Resumen}{3}{section.1}%
+\contentsline {section}{\numberline {2}Introducción}{3}{section.2}%
+\contentsline {section}{\numberline {3}Marco conceptual}{3}{section.3}%
+\contentsline {subsection}{\numberline {3.1}High Performance Computing}{3}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Multiplicacion de matrices}{3}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Matrices transpuestas}{3}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Marco Contextual}{3}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Características de la máquina}{3}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Características del entorno de pruebas}{3}{subsection.4.2}%
+\contentsline {section}{\numberline {5}Desarrollo}{3}{section.5}%
+\contentsline {section}{\numberline {6}Pruebas}{3}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Algoritmo secuencial}{3}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Algoritmo secuencial con optimización de memoria}{3}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Algoritmo secuencial con optimización de CPU}{3}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Algoritmo con 2 hilos}{3}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5}Algoritmo con 4 hilos}{3}{subsection.6.5}%
+\contentsline {subsection}{\numberline {6.6}Algoritmo con 8 hilos}{3}{subsection.6.6}%
+\contentsline {subsection}{\numberline {6.7}Algoritmo con 16 hilos}{3}{subsection.6.7}%
+\contentsline {subsection}{\numberline {6.8}Algoritmo con 2 procesos}{3}{subsection.6.8}%
+\contentsline {subsection}{\numberline {6.9}Algoritmo con 4 procesos}{3}{subsection.6.9}%
+\contentsline {subsection}{\numberline {6.10}Algoritmo con 8 procesos}{3}{subsection.6.10}%
+\contentsline {subsection}{\numberline {6.11}Algoritmo con 16 procesos}{3}{subsection.6.11}%
+\contentsline {section}{\numberline {7}Gráficas comparativas}{4}{section.7}%
+\contentsline {section}{\numberline {8}Conclusiones}{5}{section.8}%

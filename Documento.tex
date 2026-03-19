@@ -1,0 +1,168 @@
+\documentclass[12pt, letterpaper]{article}
+
+% ── Packages ──────────────────────────────────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage[breaklinks]{hyperref}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{parskip}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{url}
+
+% ── Page geometry ──────────────────────────────────────────────────────────────
+\geometry{
+  top    = 2.5cm,
+  bottom = 2.5cm,
+  left   = 3cm,
+  right  = 3cm
+}
+
+\setlength{\headheight}{14pt}
+
+% ── Header / Footer ───────────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Multiplicación de matrices — HPC}
+\fancyhead[R]{\small Universidad Tecnológica de Pereira}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ── Section formatting ────────────────────────────────────────────────────────
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+
+% ── Hyperlink colours ─────────────────────────────────────────────────────────
+\hypersetup{
+  colorlinks = true,
+  linkcolor  = black,
+  urlcolor   = blue,
+  citecolor  = black
+}
+
+% ── Table column type ─────────────────────────────────────────────────────────
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\begin{document}
+
+% ── Title page ────────────────────────────────────────────────────────────────
+\begin{titlepage}
+  \centering
+  \pagenumbering{roman}
+  \vspace*{2cm}
+
+  {\LARGE\bfseries Multiplicación de matrices de forma concurrente, con hilos y procesos\par}
+
+  \vspace{2cm}
+
+  {\large\textbf{Presentado por:}\\[0.4em]
+  Daniel Toro Soto\\
+  Juan Camilo Galvis Agudelo}
+
+  \vspace{1.5cm}
+
+  {\large\textbf{Presentado a:}\\[0.4em]
+  Ramiro Andrés Barrios Valencia}
+
+  \vspace{1.5cm}
+
+  {\large HPC: High Performance Computing\\[0.3em]
+  Ingeniería de Sistemas y Computación\\[0.3em]
+  Universidad Tecnológica de Pereira}
+
+  \vfill
+
+  {\large 2025}
+\end{titlepage}
+\pagenumbering{arabic}
+
+% ── Table of contents ─────────────────────────────────────────────────────────
+\tableofcontents
+\newpage
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Resumen}
+
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Introducción}
+
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Marco conceptual}
+
+\subsection{High Performance Computing}
+
+\subsection{Multiplicacion de matrices}
+
+\subsection{Matrices transpuestas}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Marco Contextual}
+
+\subsection{Características de la máquina}
+
+\subsection{Características del entorno de pruebas}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Desarrollo}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Pruebas}
+
+\subsection{Algoritmo secuencial}
+
+\subsection{Algoritmo secuencial con optimización de memoria}
+
+\subsection{Algoritmo secuencial con optimización de CPU}
+
+\subsection{Algoritmo con 2 hilos}
+
+\subsection{Algoritmo con 4 hilos}
+
+\subsection{Algoritmo con 8 hilos}
+
+\subsection{Algoritmo con 16 hilos}
+
+\subsection{Algoritmo con 2 procesos}
+
+\subsection{Algoritmo con 4 procesos}
+
+\subsection{Algoritmo con 8 procesos}
+
+\subsection{Algoritmo con 16 procesos}
+\newpage
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Gráficas comparativas}
+\newpage
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Conclusiones}
+\newpage
+
+% ══════════════════════════════════════════════════════════════════════════════
+\begin{thebibliography}{1}
+
+\bibitem{cortez2004}
+Cortéz, A. (2004).
+\textit{Teoría de la Complejidad Computacional y Teoría de}…
+\textit{Revista de Investigación de Sistemas e Informática}, 1(1), 102--105.
+\url{https://revistasinvestigacion.unmsm.edu.pe/index.php/sistem/article/view/3216}
+
+\end{thebibliography}
+
+\end{document}
