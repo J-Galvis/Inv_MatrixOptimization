@@ -1,4 +1,3 @@
-
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
@@ -214,9 +213,8 @@ A continuación se presentan los tiempos promedio de ejecución (en segundos, so
 
 \subsection{Secuencial}
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
-\caption{Resultados de la ejecución secuencial.}
 \tiny
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
@@ -240,14 +238,13 @@ A continuación se presentan los tiempos promedio de ejecución (en segundos, so
 \end{tabular}
 \label{tab:secuencial}
 
-\footnotesize{Fuente: Elaboración propia.}
+\caption{Resultados de la ejecución secuencial.}
 \end{table}
 
 \subsection{Secuencial con flag}
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
-\caption{Resultados de la ejecución secuencial con flag.}
 \tiny
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
@@ -273,17 +270,20 @@ A continuación se presentan los tiempos promedio de ejecución (en segundos, so
 \end{tabular}
 \label{tab:secuencial_flag}
 
-\footnotesize{Fuente: Elaboración propia.}
+\caption{Resultados de la ejecución secuencial con flag.}
 \end{table}
 
 %% TABLE 1: MEMORY
-\begin{table}[h!]
+
+\subsection{Secuencial con flag}
+
+\begin{table}[H]
 \centering
-\caption{Resultados de la ejecución con memoria compartida.}
+
 \tiny
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-\multicolumn{12}{|c|}{\textbf{Memoria Compartida}} \\
+\multicolumn{12}{|c|}{\textbf{Optimización de Caché (Transpuesta)}} \\
 \hline
 \textbf{Dim} & \textbf{500} & \textbf{1000} & \textbf{1300} & \textbf{1600} & \textbf{2000} & \textbf{2300} & \textbf{2600} & \textbf{3000} & \textbf{3300} & \textbf{3600} & \textbf{4000} \\
 \hline
@@ -304,13 +304,15 @@ A continuación se presentan los tiempos promedio de ejecución (en segundos, so
 \hline
 \end{tabular}
 \label{tab:memoria}
-\footnotesize{Fuente: Elaboración propia.}
+\caption{Resultados de la ejecución con optimización de caché (transposición de $B$).}
 \end{table}
 
 %% TABLE 2: MULTIPROCESSING 2
-\begin{table}[h!]
+
+\subsection{Secuencial con flag}
+
+\begin{table}[H]
 \centering
-\caption{Resultados de la ejecución con multiprocesamiento de 2 procesos.}
 \tiny
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
@@ -335,13 +337,15 @@ A continuación se presentan los tiempos promedio de ejecución (en segundos, so
 \hline
 \end{tabular}
 \label{tab:mp2}
-\footnotesize{Fuente: Elaboración propia.}
+\caption{Resultados de la ejecución con multiprocesamiento de 2 procesos.}
 \end{table}
 
 %% TABLE 3: MULTIPROCESSING 4
-\begin{table}[h!]
+
+\subsection{Secuencial con flag}
+
+\begin{table}[H]
 \centering
-\caption{Resultados de la ejecución con multiprocesamiento de 4 procesos.}
 \tiny
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
@@ -366,13 +370,15 @@ A continuación se presentan los tiempos promedio de ejecución (en segundos, so
 \hline
 \end{tabular}
 \label{tab:mp4}
-\footnotesize{Fuente: Elaboración propia.}
+\caption{Resultados de la ejecución con multiprocesamiento de 4 procesos.}
 \end{table}
 
 %% TABLE 4: MULTIPROCESSING 8
-\begin{table}[h!]
+
+\subsection{Secuencial con flag}
+
+\begin{table}[H]
 \centering
-\caption{Resultados de la ejecución con multiprocesamiento de 8 procesos.}
 \tiny
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
@@ -397,13 +403,15 @@ A continuación se presentan los tiempos promedio de ejecución (en segundos, so
 \hline
 \end{tabular}
 \label{tab:mp8}
-\footnotesize{Fuente: Elaboración propia.}
+\caption{Resultados de la ejecución con multiprocesamiento de 8 procesos.}
 \end{table}
 
 %% TABLE 5: MULTIPROCESSING 16
-\begin{table}[h!]
+
+\subsection{Secuencial con flag}
+
+\begin{table}[H]
 \centering
-\caption{Resultados de la ejecución con multiprocesamiento de 16 procesos.}
 \tiny
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
@@ -428,17 +436,19 @@ A continuación se presentan los tiempos promedio de ejecución (en segundos, so
 \hline
 \end{tabular}
 \label{tab:mp16}
-\footnotesize{Fuente: Elaboración propia.}
+\caption{Resultados de la ejecución con multiprocesamiento de 16 procesos.}
 \end{table}
 
 %% TABLE 6: THREADS 2
-\begin{table}[h!]
+
+\subsection{Secuencial con flag}
+
+\begin{table}[H]
 \centering
-\caption{Resultados de la ejecución con hilos de 2 hilos.}
 \tiny
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-\multicolumn{12}{|c|}{\textbf{Hilos 2 Hilos}} \\
+\multicolumn{12}{|c|}{\textbf{Hilos POSIX --- 2 Hilos}} \\
 \hline
 \textbf{Dim} & \textbf{500} & \textbf{1000} & \textbf{1300} & \textbf{1600} & \textbf{2000} & \textbf{2300} & \textbf{2600} & \textbf{3000} & \textbf{3300} & \textbf{3600} & \textbf{4000} \\
 \hline
@@ -459,17 +469,19 @@ A continuación se presentan los tiempos promedio de ejecución (en segundos, so
 \hline
 \end{tabular}
 \label{tab:t2}
-\footnotesize{Fuente: Elaboración propia.}
+\caption{Resultados de la ejecución con 2 hilos POSIX (pthread).}
 \end{table}
 
 %% TABLE 7: THREADS 4
-\begin{table}[h!]
+
+\subsection{Secuencial con flag}
+
+\begin{table}[H]
 \centering
-\caption{Resultados de la ejecución con hilos de 4 hilos.}
 \tiny
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-\multicolumn{12}{|c|}{\textbf{Hilos 4 Hilos}} \\
+\multicolumn{12}{|c|}{\textbf{Hilos POSIX --- 4 Hilos}} \\
 \hline
 \textbf{Dim} & \textbf{500} & \textbf{1000} & \textbf{1300} & \textbf{1600} & \textbf{2000} & \textbf{2300} & \textbf{2600} & \textbf{3000} & \textbf{3300} & \textbf{3600} & \textbf{4000} \\
 \hline
@@ -490,17 +502,19 @@ A continuación se presentan los tiempos promedio de ejecución (en segundos, so
 \hline
 \end{tabular}
 \label{tab:t4}
-\footnotesize{Fuente: Elaboración propia.}
+\caption{Resultados de la ejecución con 4 hilos POSIX (pthread).}
 \end{table}
 
 %% TABLE 8: THREADS 8
-\begin{table}[h!]
+
+\subsection{Secuencial con flag}
+
+\begin{table}[H]
 \centering
-\caption{Resultados de la ejecución con hilos de 8 hilos.}
 \tiny
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-\multicolumn{12}{|c|}{\textbf{Hilos 8 Hilos}} \\
+\multicolumn{12}{|c|}{\textbf{Hilos POSIX --- 8 Hilos}} \\
 \hline
 \textbf{Dim} & \textbf{500} & \textbf{1000} & \textbf{1300} & \textbf{1600} & \textbf{2000} & \textbf{2300} & \textbf{2600} & \textbf{3000} & \textbf{3300} & \textbf{3600} & \textbf{4000} \\
 \hline
@@ -521,17 +535,19 @@ A continuación se presentan los tiempos promedio de ejecución (en segundos, so
 \hline
 \end{tabular}
 \label{tab:t8}
-\footnotesize{Fuente: Elaboración propia.}
+\caption{Resultados de la ejecución con 8 hilos POSIX (pthread).}
 \end{table}
 
 %% TABLE 9: THREADS 16
-\begin{table}[h!]
+
+\subsection{Secuencial con flag}
+
+\begin{table}[H]
 \centering
-\caption{Resultados de la ejecución con hilos de 16 hilos.}
 \tiny
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-\multicolumn{12}{|c|}{\textbf{Hilos 16 Hilos}} \\
+\multicolumn{12}{|c|}{\textbf{Hilos POSIX --- 16 Hilos}} \\
 \hline
 \textbf{Dim} & \textbf{500} & \textbf{1000} & \textbf{1300} & \textbf{1600} & \textbf{2000} & \textbf{2300} & \textbf{2600} & \textbf{3000} & \textbf{3300} & \textbf{3600} & \textbf{4000} \\
 \hline
@@ -552,125 +568,8 @@ A continuación se presentan los tiempos promedio de ejecución (en segundos, so
 \hline
 \end{tabular}
 \label{tab:t16}
-\footnotesize{Fuente: Elaboración propia.}
+\caption{Resultados de la ejecución con 16 hilos POSIX (pthread).}
 \end{table}
-
-% % --- Table 1: Sequential variants ---
-% \subsection{Variantes secuenciales}
-
-% \begin{landscape}
-% \begin{table}[h!]
-% \centering
-% \caption{Tiempo promedio de ejecución (s) --- Variantes secuenciales}
-% \label{tab:seq}
-% \begin{adjustbox}{width=\linewidth}
-% \begin{tabular}{lrrrrrrrrrrr}
-% \toprule
-% \textbf{Implementación} & \textbf{500} & \textbf{1000} & \textbf{1300} & \textbf{1600} & \textbf{2000} & \textbf{2300} & \textbf{2600} & \textbf{3000} & \textbf{3300} & \textbf{3600} & \textbf{4000} \\
-% \midrule
-% Secuencial         & 0.226 & 1.840 & 3.732 & 6.981 & 17.155 & 21.885 & 37.355 & 61.391 & 76.236 & 223.768 & 307.695 \\
-% Secuencial (\texttt{-O2}) & 0.091 & 0.806 & 1.425 & 2.605 &  9.421 &  8.522 & 18.864 & 33.747 & 30.220 & 155.572 & 214.995 \\
-% Memoria (transpuesta)     & 0.163 & 1.170 & 2.552 & 4.768 &  9.268 & 14.093 & 20.346 & 31.206 & 41.513 &  53.724 &  73.905 \\
-% \bottomrule
-% \end{tabular}
-% \end{adjustbox}
-% \end{table}
-
-% % --- Table 2: Threads ---
-% \begin{table}[h!]
-% \centering
-% \caption{Tiempo promedio de ejecución (s) --- Hilos POSIX (\texttt{pthread})}
-% \label{tab:threads}
-% \begin{adjustbox}{width=\linewidth}
-% \begin{tabular}{lrrrrrrrrrrr}
-% \toprule
-% \textbf{Hilos} & \textbf{500} & \textbf{1000} & \textbf{1300} & \textbf{1600} & \textbf{2000} & \textbf{2300} & \textbf{2600} & \textbf{3000} & \textbf{3300} & \textbf{3600} & \textbf{4000} \\
-% \midrule
-%  2 & 0.145 & 1.057 & 2.334 & 4.455 &  9.544 & 14.294 & 25.859 & 41.107 & 50.791 & 125.203 & 173.222 \\
-%  4 & 0.070 & 0.556 & 1.213 & 2.245 &  5.113 &  7.924 & 17.856 & 27.640 & 26.653 &  80.842 & 114.996 \\
-%  8 & 0.055 & 0.421 & 1.037 & 1.949 &  4.201 &  6.328 & 10.813 & 17.345 & 20.749 &  55.712 &  79.999 \\
-% 16 & 0.051 & 0.397 & 1.030 & 1.911 &  4.086 &  6.408 & 10.838 & 17.722 & 21.357 &  57.493 &  79.578 \\
-% \bottomrule
-% \end{tabular}
-% \end{adjustbox}
-% \end{table}
-
-% % --- Table 3: Multiprocessing ---
-% \begin{table}[h!]
-% \centering
-% \caption{Tiempo promedio de ejecución (s) --- Multiprocesamiento (\texttt{fork})}
-% \label{tab:mp}
-% \begin{adjustbox}{width=\linewidth}
-% \begin{tabular}{lrrrrrrrrrrr}
-% \toprule
-% \textbf{Procesos} & \textbf{500} & \textbf{1000} & \textbf{1300} & \textbf{1600} & \textbf{2000} & \textbf{2300} & \textbf{2600} & \textbf{3000} & \textbf{3300} & \textbf{3600} & \textbf{4000} \\
-% \midrule
-%  2 & 0.129 & 0.938 & 1.953 & 3.984 &  8.608 & 12.924 & 23.279 & 37.491 & 44.625 & 113.339 & 155.613 \\
-%  4 & 0.061 & 0.485 & 1.013 & 1.902 &  4.570 &  6.907 & 16.349 & 27.774 & 24.555 &  77.886 & 110.092 \\
-%  8 & 0.051 & 0.371 & 0.881 & 1.634 &  3.740 &  5.592 & 10.109 & 16.438 & 18.418 &  56.073 &  76.066 \\
-% 16 & 0.049 & 0.358 & 0.869 & 1.636 &  3.577 &  5.631 &  9.977 & 16.420 & 19.311 &  57.774 &  77.621 \\
-% \bottomrule
-% \end{tabular}
-% \end{adjustbox}
-% \end{table}
-% \end{landscape}
-
-% % --- Table 4: Speedup threads ---
-% \subsection{Speedup respecto a la ejecución secuencial}
-
-% \begin{landscape}
-% \begin{table}[h!]
-% \centering
-% \caption{Speedup $S_p = T_{\text{sec}} / T_p$ --- Variantes secuenciales optimizadas}
-% \label{tab:speedup_seq}
-% \begin{adjustbox}{width=\linewidth}
-% \begin{tabular}{lrrrrrrrrrrr}
-% \toprule
-% \textbf{Implementación} & \textbf{500} & \textbf{1000} & \textbf{1300} & \textbf{1600} & \textbf{2000} & \textbf{2300} & \textbf{2600} & \textbf{3000} & \textbf{3300} & \textbf{3600} & \textbf{4000} \\
-% \midrule
-% Secuencial (\texttt{-O2}) & 2.48 & 2.28 & 2.62 & 2.68 & 1.82 & 2.57 & 1.98 & 1.82 & 2.52 & 1.44 & 1.43 \\
-% Memoria (transpuesta)     & 1.39 & 1.57 & 1.46 & 1.46 & 1.85 & 1.55 & 1.84 & 1.97 & 1.84 & 4.17 & 4.16 \\
-% \bottomrule
-% \end{tabular}
-% \end{adjustbox}
-% \end{table}
-
-% \begin{table}[h!]
-% \centering
-% \caption{Speedup $S_p = T_{\text{sec}} / T_p$ --- Hilos POSIX}
-% \label{tab:speedup_threads}
-% \begin{adjustbox}{width=\linewidth}
-% \begin{tabular}{lrrrrrrrrrrr}
-% \toprule
-% \textbf{Hilos} & \textbf{500} & \textbf{1000} & \textbf{1300} & \textbf{1600} & \textbf{2000} & \textbf{2300} & \textbf{2600} & \textbf{3000} & \textbf{3300} & \textbf{3600} & \textbf{4000} \\
-% \midrule
-%  2 & 1.56 & 1.74 & 1.60 & 1.57 & 1.80 & 1.53 & 1.44 & 1.49 & 1.50 & 1.79 & 1.78 \\
-%  4 & 3.23 & 3.31 & 3.08 & 3.11 & 3.35 & 2.76 & 2.09 & 2.22 & 2.86 & 2.77 & 2.68 \\
-%  8 & 4.11 & 4.37 & 3.60 & 3.58 & 4.08 & 3.46 & 3.45 & 3.54 & 3.67 & 4.02 & 3.85 \\
-% 16 & 4.43 & 4.63 & 3.62 & 3.65 & 4.20 & 3.41 & 3.45 & 3.47 & 3.57 & 3.89 & 3.87 \\
-% \bottomrule
-% \end{tabular}
-% \end{adjustbox}
-% \end{table}
-
-% \begin{table}[h!]
-% \centering
-% \caption{Speedup $S_p = T_{\text{sec}} / T_p$ --- Multiprocesamiento (\texttt{fork})}
-% \label{tab:speedup_mp}
-% \begin{adjustbox}{width=\linewidth}
-% \begin{tabular}{lrrrrrrrrrrr}
-% \toprule
-% \textbf{Procesos} & \textbf{500} & \textbf{1000} & \textbf{1300} & \textbf{1600} & \textbf{2000} & \textbf{2300} & \textbf{2600} & \textbf{3000} & \textbf{3300} & \textbf{3600} & \textbf{4000} \\
-% \midrule
-%  2 & 1.75 & 1.96 & 1.91 & 1.75 & 1.99 & 1.69 & 1.60 & 1.64 & 1.71 & 1.97 & 1.98 \\
-%  4 & 3.70 & 3.79 & 3.68 & 3.67 & 3.75 & 3.17 & 2.28 & 2.21 & 3.10 & 2.87 & 2.80 \\
-%  8 & 4.43 & 4.96 & 4.24 & 4.27 & 4.59 & 3.91 & 3.70 & 3.73 & 4.14 & 3.99 & 4.04 \\
-% 16 & 4.61 & 5.14 & 4.29 & 4.27 & 4.80 & 3.88 & 3.74 & 3.74 & 3.95 & 3.87 & 3.96 \\
-% \bottomrule
-% \end{tabular}
-% \end{adjustbox}
-% \end{table}
-% \end{landscape}
 
 % --- Graphs ---
 \section{Gráficas comparativas}
@@ -755,19 +654,41 @@ Los procesos con \texttt{fork} muestran speedups ligeramente superiores a los hi
 \section{Conclusiones}
 
 \begin{enumerate}
-    \item \textbf{Optimización de caché es competitiva con el paralelismo}: la versión con transposición de $B$ supera los $4\times$ de speedup para matrices de dimensión $\geq 3600$, equiparándose a 16 hilos sin ningún paralelismo explícito. En cargas con restricciones de energía o simplicidad de código, esta estrategia es preferible.
+    \item \textbf{La optimización de caché rivaliza con el paralelismo para matrices grandes}: 
+    la transposición de $B$ alcanza speedups superiores a $4\times$ para $N \geq 3600$, 
+    igualando configuraciones de 16 workers sin overhead de sincronización ni complejidad 
+    de código adicional. En cargas con restricciones de energía o simplicidad, esta 
+    estrategia es preferible al paralelismo explícito.
 
-    \item \textbf{La bandera \texttt{-O2} aporta $\sim 2\times$ con bajo costo}: para matrices pequeñas donde el overhead de creación de hilos no se amortiza, compilar con \texttt{-O2} es la opción más sencilla y efectiva.
+    \item \textbf{La bandera \texttt{-O2} ofrece la mejor relación costo-beneficio para 
+    matrices pequeñas}: entrega speedups de $2.7\times$ para $N \leq 1600$ con cero 
+    cambios algorítmicos, superando incluso a 2 hilos ($\approx 1.6\times$). Su efectividad 
+    cae a $1.4\times$ en $N = 4000$, donde el cuello de botella se traslada al ancho de 
+    banda de memoria.
 
-    \item \textbf{El punto de inflexión del paralelismo está en matrices de $\approx 1000$}: por debajo de esta dimensión, el overhead de creación de hilos o procesos supera la ganancia. A partir de 1000, el paralelismo es claramente beneficioso.
+    \item \textbf{El paralelismo solo compensa a partir de $N \approx 1000$}: por debajo 
+    de esta dimensión, el overhead de creación de hilos o procesos anula la ganancia. A 
+    partir de $N = 2000$, la brecha entre el secuencial ($\approx 304$ s en $N = 4000$) 
+    y cualquier versión paralela se vuelve irrecuperable.
 
-    \item \textbf{8 trabajadores es el punto óptimo en el M4}: el salto de 4 a 8 hilos/procesos aporta un incremento significativo de speedup ($\sim 1\times$ adicional). El salto de 8 a 16 es marginal ($<0.3\times$), evidenciando los límites de los núcleos de eficiencia y la Ley de Amdahl.
+    \item \textbf{El punto óptimo de workers en el M4 es 8, no 16}: el salto de 4 a 8 
+    workers aporta $\approx 1\times$ de speedup adicional, mientras que el de 8 a 16 apenas 
+    suma $0.3\times$. La arquitectura heterogénea del chip (4 P-cores $+$ 6 E-cores) genera 
+    desbalance de carga al usar 16 workers, limitando la ganancia real al equivalente de 
+    los P-cores disponibles.
 
-    \item \textbf{Hilos y procesos son equivalentes en rendimiento}: ambas estrategias producen speedups muy similares. La ligera ventaja de los procesos en algunos casos se debe a diferencias en la semántica de medición de tiempo de CPU, no a una superioridad real del multiprocesamiento.
+    \item \textbf{La eficiencia paralela se degrada al escalar workers}: cae de $\approx 85\%$ 
+    con 2 workers a $\approx 28\%$ con 16, evidenciando que maximizar el número de workers 
+    no equivale a maximizar el rendimiento en hardware heterogéneo.
 
-    \end{enumerate}
+    \item \textbf{Hilos y procesos son equivalentes en rendimiento}: las diferencias de 
+    speedup entre \texttt{pthread} y \texttt{fork} $+$ \texttt{mmap} son menores a $0.5\times$ 
+    y desaparecen al crecer la dimensión de la matriz. La elección entre ambos debe basarse 
+    en criterios de diseño del sistema, no de rendimiento puro.
+\end{enumerate}
 
 % ─────────────────────────────────────────────────────────────────────────────
+\newpage
 \section{Bibliografía}
 
 \begin{thebibliography}{9}
