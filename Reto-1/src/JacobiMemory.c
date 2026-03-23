@@ -84,34 +84,123 @@ int jacobi(double *u, double *f, int N, double h, double tol, int max_iter)
         fprintf(stderr, "ERROR: could not allocate u_old buffer.\n");
         exit(1);
     }
+
+    /*
+     * FIX 2 — pointer swapping instead of array copying.
+     * Rather than copying N doubles from u into u_old at the start of
+     * every sweep (an entire extra O(N) memory pass), we keep two pointers
+     * and swap them after each sweep. u_cur always points to the current
+     * iterate; u_nxt always points to the buffer where the next iterate
+     * is written. No data ever moves — only two pointer variables swap.
+     *
+     * The boundary nodes of u_nxt must be initialised once to the Dirichlet
+     * values (0 here). They are never touched by the sweep loop, so they
+     * remain correct after every swap.
+     */
+    double *u_cur = u;      /* current iterate — starts as the zero vector  */
+    double *u_nxt = u_old;  /* next iterate buffer — alternates with u_cur  */
+
+    u_nxt[0]     = u_cur[0];      /* boundary: u(0) = 0 */
+    u_nxt[N - 1] = u_cur[N - 1]; /* boundary: u(1) = 0 */
+
+    /*
+     * FIX 3 — residual check frequency.
+     * In the original code the full RMS residual was computed after every
+     * single sweep — one extra O(N) pass per iteration. For large k, where
+     * tens of thousands of sweeps are needed, this dominates runtime.
+     * We instead check only every CHECK_INTERVAL sweeps. Convergence is
+     * detected at most CHECK_INTERVAL sweeps late, which is negligible.
+     * Between checks, rms retains its value from the last check.
+     */
+    const int CHECK_INTERVAL = 50;
+
+    /*
+     * FIX 1 — fused sweep + residual loop.
+     * On check iterations we compute the residual contribution of node j
+     * in the SAME loop as the Jacobi update. The three values u_cur[j-1],
+     * u_cur[j], u_cur[j+1] are already loaded from memory to compute
+     * u_nxt[j]; we reuse them immediately for the residual formula at zero
+     * extra memory cost. This eliminates the second full array traversal
+     * that compute_rms_residual() previously caused.
+     *
+     * Note: the residual is evaluated on u_cur (the iterate BEFORE this
+     * sweep). It is therefore the residual of the previous iterate, which
+     * is a valid and standard convergence measure.
+     */
+
     /*
     printf("\n");
     printf("  %8s  %14s  %14s\n", "Step", "RMS residual", "Change norm");
     printf("  %8s  %14s  %14s\n", "--------", "--------------", "--------------");
     */ 
 
-    it = 0;
+    it  = 0;
+    rms = compute_rms_residual(u_cur, f, N, h); /* residual of initial guess */
 
     while (1)
     {
-        for (j = 0; j < N; j++)
-            u_old[j] = u[j];
 
-        /* ── Jacobi sweep: update every interior node ── */
-        for (j = 1; j < N - 1; j++)
+        if (it % CHECK_INTERVAL == 0)
         {
             /*
-             * Solve the j-th equation for u[j]:
-             *   u_new[j] = (f[j]*h² + u_old[j-1] + u_old[j+1]) / 2
-             *
-             * Boundary nodes (j=0 and j=N-1) are never touched;
-             * they stay at zero throughout the entire iteration.
+             * FIX 1 + 3 — check iteration: fused sweep and residual.
+             * Single loop reads u_cur[j-1..j+1] once, uses those values
+             * for both the Jacobi update and the residual accumulation,
+             * then writes u_nxt[j]. One memory pass replaces two.
              */
-            u[j] = (f[j] * h2 + u_old[j-1] + u_old[j+1]) / 2.0;
+            double sum_sq = 0.0;
+            double inv_h2 = 1.0 / h2;
+            double r_j;
+
+            /* interior nodes: fused update + residual */
+            for (j = 1; j < N - 1; j++)
+            {
+                /* residual of u_cur at node j — data already in cache */
+                r_j    = (-u_cur[j-1] + 2.0*u_cur[j] - u_cur[j+1]) * inv_h2 - f[j];
+                sum_sq += r_j * r_j;
+
+                /* Jacobi update — same three values, no extra load */
+                u_nxt[j] = (f[j] * h2 + u_cur[j-1] + u_cur[j+1]) / 2.0;
+            }
+
+            /* boundary contributions to the residual sum */
+            r_j    = u_cur[0]     - f[0];       /* row 0:   u[0]   = 0 */
+            sum_sq += r_j * r_j;
+            r_j    = u_cur[N-1]   - f[N-1];     /* row N-1: u[N-1] = 0 */
+            sum_sq += r_j * r_j;
+
+            rms = sqrt(sum_sq / (double)N);
+        }
+        else
+        {
+            /*
+             * FIX 3 — non-check iteration: sweep only, no residual.
+             * The array is traversed exactly once per sweep on these
+             * iterations, with no extra passes for residual or change norm.
+             */
+            for (j = 1; j < N - 1; j++)
+            {
+                /*
+                 * Solve the j-th equation for u[j]:
+                 *   u_new[j] = (f[j]*h² + u_old[j-1] + u_old[j+1]) / 2
+                 *
+                 * Boundary nodes (j=0 and j=N-1) are never touched;
+                 * they stay at zero throughout the entire iteration.
+                 */
+                u_nxt[j] = (f[j] * h2 + u_cur[j-1] + u_cur[j+1]) / 2.0;
+            }
         }
 
-        /* ── Compute RMS residual with the new iterate ── */
-        rms = compute_rms_residual(u, f, N, h);
+        /*
+         * FIX 2 — pointer swap.
+         * What was previously a full O(N) memcpy (u -> u_old) is now
+         * just two pointer assignments. The roles of the two buffers flip:
+         * the buffer we just wrote becomes the new current iterate, and
+         * the old current iterate becomes the workspace for the next sweep.
+         */
+        double *tmp = u_cur;
+        u_cur       = u_nxt;
+        u_nxt       = tmp;
 
         it++;
 
@@ -131,6 +220,20 @@ int jacobi(double *u, double *f, int N, double h, double tol, int max_iter)
             printf("  Final RMS residual = %.4e, tolerance = %.4e\n", rms, tol);
             break;
         }
+    }
+
+    /*
+     * FIX 2 — copy-back guard.
+     * After an odd number of sweeps, u_cur points to u_old (the allocated
+     * buffer), not to the original u array that the caller passed in.
+     * We copy back once so the caller sees the result in the expected place.
+     * This is a single O(N) copy that happens once at the end, regardless
+     * of how many thousands of iterations were performed.
+     */
+    if (u_cur != u)
+    {
+        for (j = 0; j < N; j++)
+            u[j] = u_cur[j];
     }
 
     free(u_old);
@@ -191,13 +294,13 @@ int main(int argc, char *argv[])
     double *f  = (double *)malloc(N * sizeof(double)); /* RHS / forcing       */
     double *u  = (double *)malloc(N * sizeof(double)); /* Jacobi solution     */
     double *ue = (double *)malloc(N * sizeof(double)); /* exact solution      */
-    /*
+
     if (!x || !f || !u || !ue)
     {
         //fprintf(stderr, "ERROR: memory allocation failed.\n");
         return 1;
     }
-    */
+
     /* ── Build the grid ── */
     /*
      * Node j is at x[j] = a + j*h, for j = 0, 1, ..., N-1.

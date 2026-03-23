@@ -84,16 +84,17 @@ int jacobi(double *u, double *f, int N, double h, double tol, int max_iter)
         fprintf(stderr, "ERROR: could not allocate u_old buffer.\n");
         exit(1);
     }
-    /*
     printf("\n");
     printf("  %8s  %14s  %14s\n", "Step", "RMS residual", "Change norm");
     printf("  %8s  %14s  %14s\n", "--------", "--------------", "--------------");
-    */ 
 
     it = 0;
 
     while (1)
     {
+        double change_sq = 0.0; /* sum of (u_new - u_old)² for change norm */
+
+        /* ── Save the current iterate before the sweep ── */
         for (j = 0; j < N; j++)
             u_old[j] = u[j];
 
@@ -113,19 +114,24 @@ int jacobi(double *u, double *f, int N, double h, double tol, int max_iter)
         /* ── Compute RMS residual with the new iterate ── */
         rms = compute_rms_residual(u, f, N, h);
 
+        /* ── Compute RMS change between successive iterates ── */
+        for (j = 0; j < N; j++)
+            change_sq += (u[j] - u_old[j]) * (u[j] - u_old[j]);
+
         it++;
+        
+        printf("  %8d  %14.6e  %14.6e\n",
+               it, rms, sqrt(change_sq / (double)N));
 
         /* ── Check convergence ── */
-        
-      if (rms <= tol)
+        if (rms <= tol)
         {
-            //printf("\n  Converged after %d iterations (RMS = %.4e <= tol = %.4e)\n",
-              //     it, rms, tol);
+           printf("\n  Converged after %d iterations (RMS = %.4e <= tol = %.4e)\n", it, rms, tol);
             break;
         }
-      
+
         /* ── Failsafe: stop if max_iter exceeded ── */
-        if (it >= max_iter)
+       if (it >= max_iter)
         {
             printf("\n  WARNING: reached max_iter = %d without converging.\n", max_iter);
             printf("  Final RMS residual = %.4e, tolerance = %.4e\n", rms, tol);
@@ -154,13 +160,13 @@ int main(int argc, char *argv[])
 
     int k = atoi(argv[1]);
   
-  /* if (argc < 2)
+    if (argc < 2)
     {
         fprintf(stderr, "Usage: %s <k>\n", argv[0]);
         fprintf(stderr, "  k = grid index, N = 2^k + 1 nodes.\n");
         fprintf(stderr, "  Example: %s 5   (reproduces PDF sample with N=33)\n", argv[0]);
         return 1;
-    }*/ 
+    }
 
     k = atoi(argv[1]);
     if (k < 0)
@@ -191,13 +197,13 @@ int main(int argc, char *argv[])
     double *f  = (double *)malloc(N * sizeof(double)); /* RHS / forcing       */
     double *u  = (double *)malloc(N * sizeof(double)); /* Jacobi solution     */
     double *ue = (double *)malloc(N * sizeof(double)); /* exact solution      */
-    /*
+
     if (!x || !f || !u || !ue)
     {
-        //fprintf(stderr, "ERROR: memory allocation failed.\n");
+        fprintf(stderr, "ERROR: memory allocation failed.\n");
         return 1;
     }
-    */
+
     /* ── Build the grid ── */
     /*
      * Node j is at x[j] = a + j*h, for j = 0, 1, ..., N-1.
@@ -236,7 +242,7 @@ int main(int argc, char *argv[])
 
     /* ── Print problem summary ── */
     
-    /*
+    
     printf("\n");
     printf("JACOBI_POISSON_1D\n");
     printf("  Jacobi iterative solution of the 1D Poisson equation.\n");
@@ -247,7 +253,7 @@ int main(int argc, char *argv[])
     printf("  Interval          = [%g, %g]\n", a, b);
     printf("  Boundary values   = u(%g)=%g,  u(%g)=%g\n", a, ua, b, ub);
     printf("  RMS residual tol  = %g\n",   tol);
-    */
+    
 
     /* ── Print summary statistics ── */
     double rms_jacobi_vs_exact  = 0.0;
@@ -260,15 +266,15 @@ int main(int argc, char *argv[])
   /* ── Run the Jacobi iteration ── */
     int it_num = jacobi(u, f, N, h, tol, max_iter);
 
-    /*
+    
     printf("\n");
     printf("  Using grid index k = %d\n",             k);
     printf("  System size N      = %d\n",             N);
     printf("  Tolerance          = %g\n",             tol);
     printf("  Jacobi iterations  = %d\n",             it_num);
     printf("\n");
-    printf("  RMS error  |u_jacobi  - u_exact|  = %g\n", rms_jacobi_vs_exact);
-    */
+    
+    //printf("  RMS error  |u_jacobi  - u_exact|  = %g\n", rms_jacobi_vs_exact);
     /* ── Free all allocated memory ── */
     free(x);
     free(f);
