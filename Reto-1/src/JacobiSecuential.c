@@ -124,13 +124,6 @@ int jacobi(double *u, double *f, int N, double h, double tol, int max_iter)
             break;
         }
       
-        /* ── Failsafe: stop if max_iter exceeded ── */
-        if (it >= max_iter)
-        {
-            printf("\n  WARNING: reached max_iter = %d without converging.\n", max_iter);
-            printf("  Final RMS residual = %.4e, tolerance = %.4e\n", rms, tol);
-            break;
-        }
     }
 
     free(u_old);
