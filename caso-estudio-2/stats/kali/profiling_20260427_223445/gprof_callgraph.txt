@@ -1,0 +1,30 @@
+			Call graph
+
+
+granularity: each sample hit covers 2 byte(s) for 0.23% of 4.41 seconds
+
+index % time    self  children    called     name
+                4.41    0.00       1/1           main [2]
+[1]    100.0    4.41    0.00       1         multiply_matrices [1]
+-----------------------------------------------
+                                                 <spontaneous>
+[2]    100.0    0.00    4.41                 main [2]
+                4.41    0.00       1/1           multiply_matrices [1]
+                0.00    0.00       3/3           create_matrix [3]
+                0.00    0.00       3/3           free_matrix [4]
+                0.00    0.00       2/2           input_matrix [5]
+-----------------------------------------------
+                0.00    0.00       3/3           main [2]
+[3]      0.0    0.00    0.00       3         create_matrix [3]
+-----------------------------------------------
+                0.00    0.00       3/3           main [2]
+[4]      0.0    0.00    0.00       3         free_matrix [4]
+-----------------------------------------------
+                0.00    0.00       2/2           main [2]
+[5]      0.0    0.00    0.00       2         input_matrix [5]
+-----------------------------------------------
+
+Index by function name
+
+   [3] create_matrix           [5] input_matrix
+   [4] free_matrix             [1] multiply_matrices
