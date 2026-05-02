@@ -98,6 +98,10 @@ static double simulate(int *road, int *road_new, int n,
 
 int main(int argc, char* argv[])
 {
+    
+    struct timespec start, end;
+    clock_gettime(CLOCK_MONOTONIC, &start);
+
     int n = atoi(argv[1]);  /* Road length (number of cells)                 */
     int density_steps = atoi(argv[2]);  
 
@@ -122,12 +126,15 @@ int main(int argc, char* argv[])
 
     seed = (unsigned int)time(NULL);
 
+    /*
+    TO PRINT AND TO CHECK IF IT IS WORKING
+
     printf("# Traffic Flow Cellular Automaton\n");
     printf("# Road length N = %d\n", n);
     printf("# Warm-up steps = %d  |  Measurement steps = %d\n",
            warmup_steps, measure_steps);
     printf("#\n");
-    printf("# density   avg_velocity\n");
+    printf("# density   avg_velocity\n");*/
 
     /*
      * Sweep density from 0 to 1 inclusive.
@@ -137,15 +144,17 @@ int main(int argc, char* argv[])
 
         density = (double)d / (double)density_steps;
 
-        /* Edge cases: analytical results are exact */
+        /*
+        // Edge cases: analytical results are exact 
         if (density <= 0.0) {
-            printf("%.6f  %.6f\n", 0.0, 1.0);   /* empty road – no cars */
+            printf("%.6f  %.6f\n", 0.0, 1.0);   // empty road – no cars 
             continue;
         }
         if (density >= 1.0) {
-            printf("%.6f  %.6f\n", 1.0, 0.0);   /* full road – all blocked */
+            printf("%.6f  %.6f\n", 1.0, 0.0);   // full road – all blocked
             continue;
         }
+        */
 
         /* Initialise road with random car placement at given density */
         init_road(road, n, density, &seed);
@@ -153,10 +162,16 @@ int main(int argc, char* argv[])
         /* Run simulation and obtain asymptotic average velocity */
         avg_vel = simulate(road, road_new, n, warmup_steps, measure_steps);
 
-        printf("%.6f  %.6f\n", density, avg_vel);
+        //printf("%.6f  %.6f\n", density, avg_vel);
     }
 
     free(road);
     free(road_new);
+
+    clock_gettime(CLOCK_MONOTONIC, &end);
+    double elapsed = (end.tv_sec - start.tv_sec) +
+                        (end.tv_nsec - start.tv_nsec) / 1e9;
+    printf("%.6f,", elapsed);
+
     return EXIT_SUCCESS;
 }
